@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/layout :: head">
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+<h3>Add Song</h3>
+<p th:field="${message}"></p>
+<p>
+    <a th:href="@{/Sing}">
+        Back to List
+    </a>
+</p>
+<div id="form">
+    <form th:action="@{/Sing/save}" method="post" novalidate="novalidate"
+          th:object="${MySing}" enctype="multipart/form-data">
+        <div>
+            <label>NameSong</label>
+            <input type="text" th:field="*{nameSong}"/>
+        </div>
+        <div>
+            <label>NameSinger</label>
+            <input type="text" th:field="*{nameSinger}"/>
+        </div>
+        <div>
+            <label>TypeSing</label>
+            <span th:each="t : ${typeSing}">
+                <input type="checkbox" th:field="*{typeSing}" th:value="${t}" th:id="${t}"/><label th:text="${t}" th:for="${t}"></label>
+            </span>
+        </div>
+        <div>
+            <label>Sing</label>
+            <input type="file" th:field="*{sing}">
+        </div>
+        <input type="submit" value="save">
+    </form>
+</div>
+<footer th:replace="/layout :: footer"></footer>
 </body>
 </html>

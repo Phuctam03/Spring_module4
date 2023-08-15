@@ -23,9 +23,9 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/Sing")
 @PropertySource("classpath:upload_file.properties")
-public class ProductController {
+public class SingController {
 
     @Value(("${file-upload}"))
     private  String fileUpload;
@@ -47,19 +47,14 @@ public class ProductController {
          return  modelAndView;
     }
     @PostMapping("/save")
-    public  ModelAndView saveProduct(@ModelAttribute("productsForm")ProductForm productForm) throws IOException {
-        ModelAndView modelAndView = new ModelAndView("redirect:/product");
-        MultipartFile multipartFile = productForm.getImage();
+    public  ModelAndView saveProduct(@ModelAttribute("MySing")FormSing formSing) throws IOException {
+        ModelAndView modelAndView = new ModelAndView("redirect:/Sing");
+        MultipartFile multipartFile = formSing.getSing();
         String fileName = multipartFile.getOriginalFilename();
         fileUpload = "E:\\image\\";
-
         FileCopyUtils.copy(multipartFile.getBytes(), new File(fileUpload + fileName));
-        Product product = new Product(productForm.getId(),productForm.getName(),productForm.getDescription(),fileName);
-
-        productService.save(product);
-        modelAndView.addObject("productForm",productForm);
+        MySing mySing = new MySing(formSing.getNameSong(),formSing.getNameSinger(),formSing.getTypeSing(),fileName);
+        mySingService.save(mySing);
         return  modelAndView;
-
     }
-
 }
