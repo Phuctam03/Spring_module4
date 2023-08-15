@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>create or update</title>
 </head>
 <body>
-$END$
+<h1>Create Or update</h1>
+<a th:href="@{/listProduct}">Back to list product</a>
+<form method="post" action="/createOrUpdate" th:object="${product}" >
+    <table>
+         <tr>
+             <th>Id</th>
+             <div th:switch="${action}">
+                 <td th:case="'create'">
+                     <input type="text" th:field="*{id}">
+                 </td>
+                 <td th:case="'update'">
+                     <input type="hidden" th:field="*{id}">
+                     <span th:text="*{id}"></span>
+                 </td>
+             </div>
+         </tr>
+        <tr>
+            <th>Name</th>
+            <td><input type="text" th:field="*{nameProduct}"></td>
+        </tr>
+        <tr>
+             <th>Price</th>
+            <td><input type="text" th:field="*{price}"></td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td><input type="text" th:field="*{description}"></td>
+        </tr>
+        <tr>
+            <th>Producer</th>
+            <td><input type="text" th:field="*{producer}"></td>
+        </tr>
+        <tr>
+            <th>TypeProduct</th>
+            <td>
+                <span th:each="t : ${typeProduct}">
+                    <input type="checkbox" th:field="*{typeProduct}" th:value="${t}" th:id="${t}">
+                    <label th:text="${t}" th:for="${t}"></label>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="submit" value="Create Or update">
+            </td>
+        </tr>
+    </table>
+    <input type="hidden" name="action" th:value="${action}">
+</form>
 </body>
 </html>

@@ -1,10 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>list product</title>
+    <style>
+          #title{
+              color: red;
+          }
+          a {
+              text-decoration: none;
+          }
+    </style>
 </head>
 <body>
-$END$
+<h1>List Product</h1>
+<form method="post" action="/search" >
+    <input type="text"  name="search"  placeholder="nameProduct">
+    <span><input type="submit" value="search"></span>
+</form>
+<a th:href="@{/create}">Add new Product</a>
+<table border="1" cellspacing="2" cellpadding="5">
+     <tr id="title">
+         <th>Id</th>
+         <th>Name</th>
+         <th>Price</th>
+         <th>description</th>
+         <th>producer</th>
+         <th>TypeProduct</th>
+         <th>Detail</th>
+         <th>Update</th>
+         <th>Delete</th>
+     </tr>
+      <tr th:each="product : ${products}" th:object="${product}">
+          <td th:text="*{id}"></td>
+          <td th:text="*{nameProduct}"></td>
+          <td th:text="*{price}"></td>
+          <td th:text="*{description}"></td>
+          <td th:text="*{producer}"></td>
+          <td th:text="*{displayTypeProduct()}"></td>
+          <td>
+              <a th:href="@{/detail(id=*{id})}">Detail</a>
+          </td>
+          <td>
+              <a th:href="@{/update(id=*{id})}">Update</a>
+          </td>
+          <td>
+              <a th:href="@{/delete(id=*{id})}">delete</a>
+          </td>
+      </tr>
+</table>
 </body>
 </html>
