@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List Picture</title>
+</head>
+<body>
+<h1>List Picture</h1>
+<a th:href="@{/picture/fromcreate}">add new comment</a>
+<table>
+     <tr>
+         <th>Assess</th>
+         <th>Author</th>
+         <th>Feedback</th>
+     </tr>
+    <tr th:each="picture : ${Pictures}" th:object="${picture}">
+        <td th:text="*{assess}"></td>
+        <td th:text="*{author}"></td>
+        <td th:text="*{feedBack}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>
